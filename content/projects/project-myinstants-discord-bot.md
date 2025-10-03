@@ -1,333 +1,244 @@
 ---
-title_en: "MyInstants Discord Bot"
-title_zh: "MyInstants Discord 机器人"
-description_en: "A discord bot to play MyInstants sounds to your friends."
-description_zh: "一个将 MyInstants 音效带入语音频道的 Discord 机器人。"
-image: "https://camo.githubusercontent.com/4b1917eff3bda4e61188df670776876b702136fb1dfb9fcbd4bdb8d68189069d/68747470733a2f2f696d616765732d6e612e73736c2d696d616765732d616d617a6f6e2e636f6d2f696d616765732f492f36314c4e416f324b39524c2e706e67"
-tags_en: ["Python", "Discord", "Bot"]
-tags_zh: ["Python", "Discord", "机器人"]
-github: "https://github.com/mgiovani/my-instants-discord-bot"
-demo: "https://discord.com/oauth2/authorize?client_id=836019264124354571"
+title_en: "[待替换] MyInstants Discord Bot"
+title_zh: "[待替换] MyInstants Discord 机器人"
+description_en: "[待替换] A Discord bot that plays sound effects from MyInstants.com, with custom commands and server management features."
+description_zh: "[待替换] 一个 Discord 机器人，可以播放来自 MyInstants.com 的音效，具有自定义命令和服务器管理功能。"
+image: "[待替换] https://camo.githubusercontent.com/1b6684c7c3ad58073423a154fa0709eb215c096fec5aa32b6a430240aaa7ce55/68747470733a2f2f692e696d6775722e636f6d2f733134694f54392e706e67"
+tags_en: 
+  - "[待替换] Discord.js"
+  - "[待替换] Node.js"
+  - "[待替换] Bot"
+  - "[待替换] Audio"
+tags_zh:
+  - "[待替换] Discord.js"
+  - "[待替换] Node.js"
+  - "[待替换] 机器人"
+  - "[待替换] 音频"
+github: "[待替换] https://github.com/mgiovani/myinstants-discord-bot"
+demo: "[待替换] null"
 ---
 
-# MyInstants Discord Bot
+# [待替换] MyInstants Discord Bot
 
-A fun and interactive Discord bot that brings the joy of MyInstants sound effects to your Discord server. This bot allows users to play popular sound clips and memes directly in voice channels, creating an entertaining experience for your community.
+[待替换] A feature-rich Discord bot that brings the fun of MyInstants.com sound effects directly to your Discord server. Play thousands of sound effects with simple commands and enjoy seamless audio integration.
 
-## Features
+## [待替换] Key Features
 
-### 🎵 Sound Playback
-- Play MyInstants sounds directly in Discord voice channels
-- Queue multiple sounds for continuous playback
-- High-quality audio streaming
-- Support for various audio formats
+### [待替换] 🎵 Sound Effects
+- [待替换] **MyInstants Integration**: Access thousands of sound effects
+- [待替换] **Quick Play**: Play sounds with simple commands
+- [待替换] **Search Functionality**: Find sounds by keywords
+- [待替换] **Favorites**: Save frequently used sounds
 
-### 🔍 Sound Search
-- Search for sounds by name or keywords
-- Browse popular sounds by category
-- Random sound selection
-- Sound recommendations
+### [待替换] 🎮 Bot Commands
+- [待替换] **Play Sound**: `!play <sound-name>` - Play a sound effect
+- [待替换] **Search**: `!search <keyword>` - Search for sounds
+- [待替换] **List**: `!list` - Show available sounds
+- [待替换] **Help**: `!help` - Display command help
 
-### 🎮 Interactive Commands
-- Easy-to-use slash commands
-- User-friendly interface
-- Real-time feedback
-- Error handling and validation
+### [待替换] ⚙️ Server Management
+- [待替换] **Role Management**: Assign roles for bot control
+- [待替换] **Channel Restrictions**: Limit bot to specific channels
+- [待替换] **Volume Control**: Adjust audio volume
+- [待替换] **Queue System**: Manage sound playback queue
 
-## Technical Implementation
+## [待替换] Technical Implementation
 
-### Core Technologies
-- **Python 3.8+**: Primary programming language
-- **discord.py**: Discord API wrapper
-- **asyncio**: Asynchronous programming
-- **aiohttp**: HTTP client for API requests
-- **youtube-dl**: Audio extraction and processing
+### [待替换] Core Technologies
+- [待替换] **Discord.js**: Discord API wrapper for Node.js
+- [待替换] **Node.js**: JavaScript runtime environment
+- [待替换] **FFmpeg**: Audio processing and conversion
+- [待替换] **SQLite**: Local database for user preferences
 
-### Architecture
-The bot follows a modular architecture with clear separation of concerns:
-
+### [待替换] Architecture
 ```
 src/
-├── bot/              # Main bot logic
-├── commands/         # Command handlers
+├── commands/          # Bot command handlers
+├── events/           # Discord event listeners
 ├── services/         # External service integrations
 ├── utils/            # Utility functions
-└── config/          # Configuration management
+└── database/         # Database operations
 ```
 
-### Key Components
+### [待替换] Audio Processing
+- [待替换] **Stream Processing**: Real-time audio streaming
+- [待替换] **Format Conversion**: Convert various audio formats
+- [待替换] **Quality Control**: Maintain audio quality
+- [待替换] **Caching**: Cache frequently used sounds
 
-#### Bot Core
-```python
-import discord
-from discord.ext import commands
+## [待替换] Installation
 
-class MyInstantsBot(commands.Bot):
-    def __init__(self):
-        intents = discord.Intents.default()
-        intents.message_content = True
-        intents.voice_states = True
-        
-        super().__init__(
-            command_prefix='!',
-            intents=intents,
-            help_command=None
-        )
-    
-    async def on_ready(self):
-        print(f'{self.user} has connected to Discord!')
-        await self.sync_commands()
-```
+### [待替换] Prerequisites
+- [待替换] Node.js 16+
+- [待替换] FFmpeg installed on system
+- [待替换] Discord Bot Token
+- [待替换] Discord Server with Bot permissions
 
-#### Sound Service
-```python
-import aiohttp
-import asyncio
-from typing import List, Dict
-
-class SoundService:
-    def __init__(self):
-        self.base_url = "https://www.myinstants.com/api"
-        self.session = None
-    
-    async def search_sounds(self, query: str) -> List[Dict]:
-        """Search for sounds matching the query"""
-        async with self.session.get(
-            f"{self.base_url}/search",
-            params={"q": query}
-        ) as response:
-            return await response.json()
-    
-    async def get_sound_url(self, sound_id: str) -> str:
-        """Get the direct URL for a sound file"""
-        async with self.session.get(
-            f"{self.base_url}/sound/{sound_id}"
-        ) as response:
-            data = await response.json()
-            return data.get("url")
-```
-
-#### Voice Management
-```python
-import discord
-from discord.ext import commands
-
-class VoiceCommands(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.voice_clients = {}
-    
-    @commands.slash_command(name="play", description="Play a sound")
-    async def play_sound(self, ctx, sound_name: str):
-        """Play a sound in the user's voice channel"""
-        if not ctx.author.voice:
-            await ctx.respond("You need to be in a voice channel!")
-            return
-        
-        voice_channel = ctx.author.voice.channel
-        
-        if ctx.guild.id not in self.voice_clients:
-            voice_client = await voice_channel.connect()
-            self.voice_clients[ctx.guild.id] = voice_client
-        else:
-            voice_client = self.voice_clients[ctx.guild.id]
-        
-        # Play the sound
-        await self._play_sound_file(voice_client, sound_name)
-        await ctx.respond(f"Playing: {sound_name}")
-```
-
-## Installation and Setup
-
-### Prerequisites
-- Python 3.8 or higher
-- Discord Bot Token
-- MyInstants API access
-
-### Installation Steps
-
-1. **Clone the repository**
+### [待替换] Setup
 ```bash
-git clone https://github.com/mgiovani/my-instants-discord-bot.git
-cd my-instants-discord-bot
+# Clone the repository
+git clone https://github.com/mgiovani/myinstants-discord-bot.git
+
+# Install dependencies
+npm install
+
+# Install FFmpeg (Ubuntu/Debian)
+sudo apt update
+sudo apt install ffmpeg
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your bot token
 ```
 
-2. **Install dependencies**
+### [待替换] Environment Configuration
+```env
+DISCORD_TOKEN=your-bot-token-here
+CLIENT_ID=your-client-id
+GUILD_ID=your-guild-id
+DATABASE_URL=./database.sqlite
+```
+
+### [待替换] Bot Permissions
+[待替换] The bot requires the following permissions:
+- [待替换] **Send Messages**: To respond to commands
+- [待替换] **Connect**: To join voice channels
+- [待替换] **Speak**: To play audio
+- [待替换] **Use Slash Commands**: For modern command interface
+
+## [待替换] Usage
+
+### [待替换] Basic Commands
+```
+!play airhorn          # Play airhorn sound
+!search laugh          # Search for laugh sounds
+!list                  # Show available sounds
+!help                  # Display help information
+```
+
+### [待替换] Advanced Features
+```
+!volume 50             # Set volume to 50%
+!queue                 # Show current queue
+!skip                  # Skip current sound
+!stop                  # Stop all sounds
+```
+
+### [待替换] Admin Commands
+```
+!setup                 # Initial bot setup
+!config                # Configure bot settings
+!ban <user>            # Ban user from using bot
+!unban <user>          # Unban user
+```
+
+## [待替换] Sound Management
+
+### [待替换] Sound Categories
+- [待替换] **Memes**: Popular meme sounds
+- [待替换] **Gaming**: Gaming-related sound effects
+- [待替换] **Music**: Musical snippets and jingles
+- [待替换] **Nature**: Natural sounds and ambience
+- [待替换] **Comedy**: Funny and comedic sounds
+
+### [待替换] Custom Sounds
+- [待替换] **Upload**: Upload custom sound files
+- [待替换] **Convert**: Automatic format conversion
+- [待替换] **Organize**: Categorize custom sounds
+- [待替换] **Share**: Share sounds with other servers
+
+## [待替换] Performance Optimization
+
+### [待替换] Caching Strategy
+- [待替换] **Sound Cache**: Cache frequently used sounds
+- [待替换] **Database Cache**: Cache user preferences
+- [待替换] **Memory Management**: Efficient memory usage
+- [待替换] **Cleanup**: Automatic cleanup of old files
+
+### [待替换] Audio Optimization
+- [待替换] **Compression**: Compress audio files
+- [待替换] **Streaming**: Stream audio without downloading
+- [待替换] **Quality Control**: Balance quality vs file size
+- [待替换] **Buffer Management**: Optimize audio buffering
+
+## [待替换] Error Handling
+
+### [待替换] Common Issues
+- [待替换] **Connection Errors**: Handle Discord API issues
+- [待替换] **Audio Errors**: Manage audio playback failures
+- [待替换] **Permission Errors**: Handle insufficient permissions
+- [待替换] **Rate Limiting**: Respect Discord rate limits
+
+### [待替换] Logging System
+- [待替换] **Error Logs**: Detailed error logging
+- [待替换] **Usage Logs**: Track command usage
+- [待替换] **Performance Logs**: Monitor bot performance
+- [待替换] **Debug Mode**: Enable debug logging
+
+## [待替换] Testing
+
+### [待替换] Unit Tests
 ```bash
-pip install -r requirements.txt
+npm run test
 ```
 
-3. **Configure environment variables**
+### [待替换] Integration Tests
 ```bash
-# Create .env file
-DISCORD_TOKEN=your_discord_bot_token
-MYINSTANTS_API_KEY=your_api_key
+npm run test:integration
 ```
 
-4. **Run the bot**
+### [待替换] Manual Testing
+- [待替换] Test all commands in development server
+- [待替换] Verify audio playback quality
+- [待替换] Test error handling scenarios
+- [待替换] Validate user permissions
+
+## [待替换] Deployment
+
+### [待替换] Production Setup
 ```bash
-python main.py
+npm run build
+npm start
 ```
 
-### Discord Bot Setup
-
-1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
-2. Create a new application
-3. Go to the "Bot" section
-4. Create a bot and copy the token
-5. Enable necessary intents (Message Content, Voice States)
-6. Invite the bot to your server with appropriate permissions
-
-## Usage
-
-### Basic Commands
-
-#### Play a Sound
-```
-/play sound_name
-```
-Plays the specified sound in your voice channel.
-
-#### Search Sounds
-```
-/search query
-```
-Searches for sounds matching your query.
-
-#### List Popular Sounds
-```
-/popular
-```
-Shows a list of popular sounds.
-
-#### Stop Playback
-```
-/stop
-```
-Stops the current sound and clears the queue.
-
-### Advanced Features
-
-#### Sound Queue
-- Add multiple sounds to a queue
-- Automatic playback of queued sounds
-- Queue management commands
-
-#### Sound Categories
-- Browse sounds by category
-- Filter by popularity or date
-- Random sound selection
-
-#### User Preferences
-- Save favorite sounds
-- Custom sound collections
-- Personal playlists
-
-## Configuration
-
-### Bot Settings
-```python
-# config/settings.py
-BOT_SETTINGS = {
-    "command_prefix": "!",
-    "max_queue_size": 10,
-    "max_sound_duration": 300,  # 5 minutes
-    "default_volume": 0.5,
-    "auto_disconnect_delay": 300  # 5 minutes
-}
+### [待替换] Docker Deployment
+```bash
+docker build -t myinstants-bot .
+docker run -d --name bot myinstants-bot
 ```
 
-### Sound Settings
-```python
-SOUND_SETTINGS = {
-    "supported_formats": [".mp3", ".wav", ".ogg"],
-    "max_file_size": 10 * 1024 * 1024,  # 10MB
-    "quality": "high",
-    "bitrate": 128
-}
-```
+### [待替换] Hosting Options
+- [待替换] **VPS**: Virtual Private Server
+- [待替换] **Cloud**: AWS, Google Cloud, Azure
+- [待替换] **Heroku**: Platform as a Service
+- [待替换] **Railway**: Modern deployment platform
 
-## Error Handling
+## [待替换] Contributing
 
-The bot includes comprehensive error handling for various scenarios:
+### [待替换] Development Setup
+1. [待替换] Fork the repository
+2. [待替换] Create a feature branch
+3. [待替换] Make your changes
+4. [待替换] Add tests for new features
+5. [待替换] Submit a pull request
 
-- **Voice Channel Issues**: Handles cases where users aren't in voice channels
-- **Network Errors**: Manages API failures and timeouts
-- **Audio Issues**: Handles corrupted or unsupported audio files
-- **Permission Errors**: Manages Discord permission issues
-- **Rate Limiting**: Implements proper rate limiting for API calls
+### [待替换] Code Guidelines
+- [待替换] Follow ESLint configuration
+- [待替换] Write meaningful commit messages
+- [待替换] Add JSDoc comments
+- [待替换] Test all new features
 
-## Performance Optimization
+## [待替换] License
 
-### Caching
-- Sound metadata caching
-- User preference caching
-- API response caching
+[待替换] This project is licensed under the MIT License.
 
-### Resource Management
-- Efficient memory usage
-- Proper cleanup of voice connections
-- Background task management
+## [待替换] Acknowledgments
 
-### Monitoring
-- Performance metrics collection
-- Error logging and reporting
-- Usage statistics
-
-## Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Install development dependencies
-4. Make your changes
-5. Add tests if applicable
-6. Submit a pull request
-
-### Areas for Contribution
-- New sound sources
-- Additional commands
-- UI improvements
-- Performance optimizations
-- Documentation updates
-- Bug fixes
-
-## Troubleshooting
-
-### Common Issues
-
-#### Bot Not Responding
-- Check if the bot is online
-- Verify bot permissions
-- Check command syntax
-
-#### Audio Not Playing
-- Ensure you're in a voice channel
-- Check audio permissions
-- Verify sound file availability
-
-#### API Errors
-- Check API key configuration
-- Verify network connectivity
-- Check rate limiting
-
-### Getting Help
-- Check the [Issues](https://github.com/mgiovani/my-instants-discord-bot/issues) page
-- Join our [Discord server](https://discord.gg/your-server)
-- Read the [documentation](https://github.com/mgiovani/my-instants-discord-bot/wiki)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Discord.py community for the excellent library
-- MyInstants for providing the sound API
-- All contributors and users who helped improve the bot
+- [待替换] Discord.js team for the excellent library
+- [待替换] MyInstants.com for sound effects
+- [待替换] Discord community for feedback
+- [待替换] Open source contributors
 
 ---
 
-*Bring the fun of MyInstants to your Discord server!*
+*[待替换] Bring the fun to your Discord server!*
